@@ -60,6 +60,17 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    implementation ("com.squareup.retrofit2:converter-moshi:2.4.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+
+    // Koin
+    implementation("io.insert-koin:koin-core:3.5.3")
+    implementation("io.insert-koin:koin-android:3.5.3")
+    testImplementation("io.insert-koin:koin-test:3.5.3")
+    androidTestImplementation("io.insert-koin:koin-test:3.5.3")
+
     testImplementation("junit:junit:4.13.2")
     testImplementation("io.mockk:mockk:1.13.9")
     testImplementation("androidx.test.ext:junit:1.1.5")
