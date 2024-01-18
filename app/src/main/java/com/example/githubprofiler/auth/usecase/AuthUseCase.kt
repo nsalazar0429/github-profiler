@@ -1,14 +1,13 @@
-package com.example.guthubprofiler.auth.usecase
+package com.example.githubprofiler.auth.usecase
 
-import com.example.guthubprofiler.auth.service.AuthRepository
-import com.example.guthubprofiler.common.DefaultError
-import com.example.guthubprofiler.common.Result
-import com.example.guthubprofiler.common.UseCase
-import com.example.guthubprofiler.auth.service.AuthUserServiceModel
-import com.example.guthubprofiler.common.failure
-import com.example.guthubprofiler.common.success
+import com.example.githubprofiler.auth.service.AuthRepository
+import com.example.githubprofiler.common.DefaultError
+import com.example.githubprofiler.common.Result
+import com.example.githubprofiler.common.UseCase
+import com.example.githubprofiler.auth.service.AuthUserServiceModel
+import com.example.githubprofiler.common.failure
+import com.example.githubprofiler.common.success
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import org.json.JSONObject
 
 class AuthUseCase(val token: String): UseCase<AuthUserServiceModel, DefaultError, AuthRepository> {

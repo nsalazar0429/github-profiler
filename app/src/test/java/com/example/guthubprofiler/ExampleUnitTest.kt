@@ -1,4 +1,4 @@
-package com.example.guthubprofiler
+package com.example.githubprofiler
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

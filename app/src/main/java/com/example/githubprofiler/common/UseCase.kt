@@ -1,4 +1,4 @@
-package com.example.guthubprofiler.common
+package com.example.githubprofiler.common
 
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.Koin

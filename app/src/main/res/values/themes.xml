@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.GuthubProfiler" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.GithubProfiler" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.GuthubProfiler" parent="Base.Theme.GuthubProfiler" />
+    <style name="Theme.GithubProfiler" parent="Base.Theme.GithubProfiler" />
 </resources>

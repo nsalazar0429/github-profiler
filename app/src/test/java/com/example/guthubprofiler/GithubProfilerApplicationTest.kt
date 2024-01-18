@@ -1,9 +1,9 @@
-package com.example.guthubprofiler
+package com.example.githubprofiler
 
 import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.guthubprofiler.common.koin.appModule
+import com.example.githubprofiler.common.koin.appModule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.verify.verify

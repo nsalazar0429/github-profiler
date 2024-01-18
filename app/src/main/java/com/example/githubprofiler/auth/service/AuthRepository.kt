@@ -1,7 +1,7 @@
-package com.example.guthubprofiler.auth.service
+package com.example.githubprofiler.auth.service
 
-import com.example.guthubprofiler.common.Repository
-import com.example.guthubprofiler.common.koin.dataModule
+import com.example.githubprofiler.common.Repository
+import com.example.githubprofiler.common.koin.dataModule
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Response

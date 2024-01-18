@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GuthubProfiler"
+rootProject.name = "GithubProfiler"
 include(":app")

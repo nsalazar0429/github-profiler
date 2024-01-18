@@ -1,7 +1,7 @@
-package com.example.guthubprofiler.auth.service
+package com.example.githubprofiler.auth.service
 
-import com.example.guthubprofiler.common.ServiceModel
-import com.example.guthubprofiler.auth.usecase.AuthUserUseCaseModel
+import com.example.githubprofiler.common.ServiceModel
+import com.example.githubprofiler.auth.usecase.AuthUserUseCaseModel
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)

@@ -1,7 +1,6 @@
-package com.example.guthubprofiler.auth.service
+package com.example.githubprofiler.auth.service
 
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 

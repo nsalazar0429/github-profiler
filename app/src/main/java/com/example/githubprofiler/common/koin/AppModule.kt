@@ -1,6 +1,6 @@
-package com.example.guthubprofiler.common.koin
+package com.example.githubprofiler.common.koin
 
-import com.example.guthubprofiler.auth.service.AuthRepository
+import com.example.githubprofiler.auth.service.AuthRepository
 import org.koin.dsl.module
 
 val appModule = module {
