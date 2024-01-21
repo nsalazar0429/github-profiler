@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">GuthubProfiler</string>
+    <string name="app_name">GithubProfiler</string>
+
+    <!-- Auth Strings -->
+    <string name="auth_personal_token_hint">Personal Token</string>
+    <string name="auth_personal_token_submit">Submit</string>
 </resources>

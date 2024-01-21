@@ -1,4 +1,4 @@
-package com.example.githubprofiler.common
+package com.example.githubprofiler.common.service
 
 import org.koin.core.Koin
 import org.koin.core.context.GlobalContext

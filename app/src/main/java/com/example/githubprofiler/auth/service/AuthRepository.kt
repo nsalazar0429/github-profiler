@@ -1,6 +1,6 @@
 package com.example.githubprofiler.auth.service
 
-import com.example.githubprofiler.common.Repository
+import com.example.githubprofiler.common.service.Repository
 import com.example.githubprofiler.common.koin.dataModule
 import org.koin.core.module.Module
 import org.koin.dsl.module
