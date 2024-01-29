@@ -1,33 +1,40 @@
 package com.example.githubprofiler.common.service
 
-import com.example.githubprofiler.common.ui.UiModel
+import com.example.githubprofiler.common.ui.BaseUiModel
+import com.example.githubprofiler.common.usecase.BaseUseCaseModel
 import com.example.githubprofiler.common.usecase.DefaultError
-import com.example.githubprofiler.common.usecase.UseCaseModel
 import com.example.githubprofiler.common.usecase.UseCaseResult
 import com.example.githubprofiler.common.usecase.failureFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import okhttp3.ResponseBody
+import org.json.JSONException
 import org.json.JSONObject
 
-interface ServiceModel<U: UseCaseModel<UI>, UI: UiModel> {
-    fun toUseCaseModel(): U
+interface ServiceModel<UseCaseModel : BaseUseCaseModel<UiModel>, UiModel : BaseUiModel> {
+    fun toUseCaseModel(): UseCaseModel
 }
 
-fun <U : UseCaseModel<UI>, E, UI : UiModel> successFlow(serviceModel: ServiceModel<U, UI>): Flow<UseCaseResult<U, E, UI>> {
+fun <UseCaseModel : BaseUseCaseModel<UIModel>, Error, UIModel : BaseUiModel> successFlow(serviceModel: ServiceModel<UseCaseModel, UIModel>): Flow<UseCaseResult<UseCaseModel, Error, UIModel>> {
     return flowOf(UseCaseResult.Success(serviceModel.toUseCaseModel()))
 }
 
-fun <U : UseCaseModel<UI>, UI : UiModel> defaultFailureFlow(errorBody: ResponseBody): Flow<UseCaseResult<U, DefaultError, UI>> {
+fun <UseCaseModel : BaseUseCaseModel<UiModel>, UiModel : BaseUiModel> defaultFailureFlow(errorBody: ResponseBody): Flow<UseCaseResult<UseCaseModel, DefaultError, UiModel>> {
+    val message = try {
+        JSONObject(errorBody.string()).getString("message")
+    } catch (e: JSONException) {
+        "Parse Error"
+    }
+
     return flowOf(
         UseCaseResult.Failure(
             DefaultError(
-                JSONObject(errorBody.string()).getString("message").orEmpty()
+                message
             )
         )
     )
 }
 
-fun <U : UseCaseModel<UI>, UI : UiModel> defaultFailureFlow(): Flow<UseCaseResult<U, DefaultError, UI>> {
+fun <U : BaseUseCaseModel<UI>, UI : BaseUiModel> defaultFailureFlow(): Flow<UseCaseResult<U, DefaultError, UI>> {
     return failureFlow(DefaultError("Parse error"))
 }

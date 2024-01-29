@@ -1,18 +1,14 @@
 package com.example.githubprofiler.common.usecase
 
-import com.example.githubprofiler.common.ui.UiModel
+import com.example.githubprofiler.common.ui.BaseUiModel
 import kotlinx.coroutines.flow.Flow
-import org.koin.core.Koin
-import org.koin.core.context.GlobalContext
 
-interface UseCase<Data: UseCaseModel<UI>, Error, Repository, UI: UiModel> {
-    val koin: Koin
-        get() = GlobalContext.get()
+interface UseCase<UseCaseModel : BaseUseCaseModel<UiModel>, Error, Repository, UiModel : BaseUiModel> {
 
     val repository: Repository
-    suspend fun launch(): Flow<UseCaseResult<Data, Error, UI>>
+    suspend fun launch(): Flow<UseCaseResult<UseCaseModel, Error, UiModel>>
 }
 
-interface UseCaseModel<Model : UiModel> {
+interface BaseUseCaseModel<Model : BaseUiModel> {
     fun toUiModel(): Model
 }

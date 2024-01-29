@@ -1,34 +1,43 @@
 package com.example.githubprofiler.auth.service
 
-import com.example.githubprofiler.common.service.Repository
 import com.example.githubprofiler.common.koin.dataModule
+import com.example.githubprofiler.common.service.Repository
+import com.example.githubprofiler.common.service.ServiceProvider
+import com.example.githubprofiler.common.service.koin
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Response
 import retrofit2.Retrofit
 
-class AuthRepository: Repository<AuthService> {
-    suspend fun authUser(token: String): Response<AuthUserServiceModel> {
-        return service().fetchUser(
-            personalToken = AuthUserServiceModel.bearerTokenHeader(token)
+class AuthRepository(
+    provider: AuthTokenServiceProvider
+) : Repository<AuthService>(provider) {
+    suspend fun authUser(token: String): Response<AuthTokenServiceModel> {
+        return provider.service().fetchUser(
+            personalToken = AuthTokenServiceModel.bearerTokenHeader(token)
         ).execute()
     }
 
-    override fun service(): AuthService {
-        return retrofit.create(AuthService::class.java)
-    }
-
     companion object {
-        fun module() : Module {
+        fun module(): Module {
             return module {
                 includes(dataModule)
                 single {
-                    get<Retrofit>().create(AuthService::class.java)
-                }
-                single {
-                    AuthRepository()
+                    AuthRepository(
+                        AuthTokenServiceProviderImpl()
+                    )
                 }
             }
         }
+    }
+}
+
+interface AuthTokenServiceProvider : ServiceProvider<AuthService>
+class AuthTokenServiceProviderImpl(
+    override val retrofit: Retrofit = koin.get()
+) : AuthTokenServiceProvider {
+
+    override fun service(): AuthService {
+        return retrofit.create(AuthService::class.java)
     }
 }

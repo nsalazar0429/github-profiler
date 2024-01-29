@@ -8,5 +8,5 @@ interface AuthService {
     @GET("/user")
     fun fetchUser(
         @Header("Authorization") personalToken: String
-    ): Call<AuthUserServiceModel>
+    ): Call<AuthTokenServiceModel>
 }

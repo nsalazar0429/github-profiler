@@ -4,12 +4,14 @@ import org.koin.core.Koin
 import org.koin.core.context.GlobalContext
 import retrofit2.Retrofit
 
-interface Repository<T> {
+abstract class Repository<T>(
+    protected val provider: ServiceProvider<T>
+)
 
-    private val koin: Koin
-        get() = GlobalContext.get()
+val koin: Koin
+    get() = GlobalContext.get()
 
+interface ServiceProvider<T> {
     val retrofit: Retrofit
-        get() = koin.get()
-    fun service(): T
+    abstract fun service(): T
 }

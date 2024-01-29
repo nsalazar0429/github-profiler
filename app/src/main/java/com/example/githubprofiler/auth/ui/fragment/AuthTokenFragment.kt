@@ -7,24 +7,26 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.githubprofiler.auth.ui.model.AuthTokenUiModel
 import com.example.githubprofiler.auth.ui.viewmodel.AuthTokenViewModel
 import com.example.githubprofiler.auth.usecase.AuthTokenUseCaseProvider
+import com.example.githubprofiler.common.ui.BaseUiResult
+import com.example.githubprofiler.common.ui.error
 import com.example.githubprofiler.common.ui.fragment.BaseFragment
-import com.example.githubprofiler.common.ui.UiResult
 import com.example.githubprofiler.common.usecase.DefaultError
-import com.example.guthubprofiler.databinding.FragmentAuthTokenBinding
+import com.example.githubprofiler.databinding.FragmentAuthTokenBinding
 
-class AuthTokenFragment: BaseFragment<FragmentAuthTokenBinding, AuthTokenViewModel, AuthTokenUseCaseProvider>() {
+class AuthTokenFragment(viewModelFactory: ViewModelProvider.Factory) : BaseFragment<FragmentAuthTokenBinding, AuthTokenViewModel, AuthTokenUseCaseProvider>() {
 
     override val viewModel: AuthTokenViewModel by viewModels {
-        AuthTokenViewModel.Factory
+        viewModelFactory
     }
     override fun initUI(layoutInflater: LayoutInflater): FragmentAuthTokenBinding {
         val binding = FragmentAuthTokenBinding.inflate(layoutInflater)
         binding.apply {
             etTokenInput.addTextChangedListener {
-               btnSubmit.isEnabled = it?.isNotBlank() ?: false
+                btnSubmit.isEnabled = !it.isNullOrBlank()
             }
             btnSubmit.setOnClickListener {
                 viewModel.checkToken(etTokenInput.text?.toString().orEmpty())
@@ -37,14 +39,14 @@ class AuthTokenFragment: BaseFragment<FragmentAuthTokenBinding, AuthTokenViewMod
         super.onViewCreated(view, savedInstanceState)
         viewModel.uiResultLiveData.observe(viewLifecycleOwner) { uiResult ->
             when (uiResult) {
-                is UiResult.Loading -> binding.spLoading.isVisible = true
-                is UiResult.Success -> onTokenValidated(uiResult.data)
-                is UiResult.Error -> onTokenFailedValidation(uiResult.error)
+                is BaseUiResult.Loading -> binding.spLoading.isVisible = true
+                is BaseUiResult.Success -> onTokenValidated(uiResult.data)
+                else -> onTokenFailedValidation(uiResult.error())
             }
         }
     }
 
-    private fun onTokenValidated(data: AuthTokenUiModel){
+    private fun onTokenValidated(data: AuthTokenUiModel) {
         Toast.makeText(
             requireContext(),
             "Success ${data.name}",
@@ -53,15 +55,17 @@ class AuthTokenFragment: BaseFragment<FragmentAuthTokenBinding, AuthTokenViewMod
         binding.spLoading.isVisible = false
     }
 
-    private fun onTokenFailedValidation(error: DefaultError){
+    private fun onTokenFailedValidation(error: DefaultError) {
         Toast.makeText(requireContext(), error.message, Toast.LENGTH_SHORT)
             .show()
         binding.spLoading.isVisible = false
     }
 
     companion object {
-        fun newInstance(): AuthTokenFragment{
-            return AuthTokenFragment()
+        fun newInstance(
+            viewModelFactory: ViewModelProvider.Factory = AuthTokenViewModel.Factory
+        ): AuthTokenFragment {
+            return AuthTokenFragment(viewModelFactory)
         }
     }
 }

@@ -32,13 +32,6 @@ private fun buildMoshi(): Moshi {
 }
 private fun buildOkHttpClient(): OkHttpClient {
     return OkHttpClient.Builder()
-        .addInterceptor { chain ->
-            val request = chain.request()
-            .newBuilder()
-            .build()
-
-            chain.proceed(request)
-        }
         .build()
 }
 
