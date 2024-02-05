@@ -27,8 +27,8 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 11
+          java-version: 17
+          distribution: 'adopt'
 
       # Step 4 Setup Gradle
       - name: Set Up Gradle
