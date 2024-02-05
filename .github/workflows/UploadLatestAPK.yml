@@ -1,0 +1,55 @@
+# Github action to publish the latest github action
+
+name: Create and Upload Apk on Firebase App Distribution.
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches: [ master ]
+
+jobs:
+  # Job 1 ->
+  CI-Debug:
+    name: Apk uploading on Firebase App Distribution
+    runs-on: ubuntu-latest
+
+    # Step 1 Store all required keys in environment variable
+    env:
+      FIREBASE_APP_ID: ${{secrets.APP_ID}}
+      CREDENTIAL_FILE_CONTENT: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+
+    steps:
+      # Step 2 Checkout Repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 3 Setup JDK
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      # Step 4 Setup Ruby
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+
+      # Step 5 Install the bundler & Fastlane
+      - name: Install bundler
+        run: |
+          gem install bundler:3.3.0
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      # Step 6 Install the Firebase app distribution plugin with fastlane
+      - name: Install Firebase app distribution plugin
+        run: bundle exec fastlane add_plugin firebase_app_distribution
+
+      # Step 7 Run the Base64 command to decode our PRIVATE_SERVICE_ACCOUNT_KEY and create the private-decoded-key.json file of our service account
+      - name: Generate firebase-distribution-key.json file
+        run: echo ${{secrets.CREDENTIAL_FILE_CONTENT}} | base64 -d > firebase-distribution-key.json
+
+      # Step 8 Run the fastlane command to upload the build
+      - name: Upload Apk to Firebase
+        run: bundle exec fastlane uploadQA
