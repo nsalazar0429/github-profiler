@@ -4,8 +4,6 @@ name: Create and Upload Apk on Firebase App Distribution.
 
 on:
   workflow_dispatch:
-#  push:
-#    branches: [ master ]
 
 jobs:
   # Job 1 ->
