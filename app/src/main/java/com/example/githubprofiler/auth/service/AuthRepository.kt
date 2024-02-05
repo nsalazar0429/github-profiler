@@ -13,6 +13,7 @@ class AuthRepository(
     provider: AuthTokenServiceProvider
 ) : Repository<AuthService>(provider) {
     suspend fun authUser(token: String): Response<AuthTokenServiceModel> {
+        "TEST 1 Checking GIthub Action"
         return provider.service().fetchUser(
             personalToken = AuthTokenServiceModel.bearerTokenHeader(token)
         ).execute()
