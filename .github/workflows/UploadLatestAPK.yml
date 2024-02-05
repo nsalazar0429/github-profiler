@@ -15,7 +15,7 @@ jobs:
       - name: Set Up Gradle
         run: gradle wrapper
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew testDebug
 
 
 
