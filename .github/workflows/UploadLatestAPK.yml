@@ -1,7 +1,7 @@
 # Github action to publish the latest github action
 
 name: Run Gradle on PRs
-on: pull_request
+on: workflow_dispatch
 jobs:
   gradle:
     strategy:
