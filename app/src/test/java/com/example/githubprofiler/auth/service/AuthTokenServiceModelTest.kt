@@ -17,6 +17,6 @@ class AuthTokenServiceModelTest {
         val result = serviceModel.toUseCaseModel()
 
         // Assert
-        assertThat(result).isEqualTo(AuthTokenUseCaseModel("WHATEVER_TOKEN"))
+        assertThat(result).isEqualTo(AuthTokenUseCaseModel("WRONG"))
     }
 }
