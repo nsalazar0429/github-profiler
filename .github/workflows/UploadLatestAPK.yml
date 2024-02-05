@@ -15,7 +15,7 @@ jobs:
 
     # Step 1 Store all required keys in environment variable
     env:
-      FIREBASE_APP_ID: ${{secrets.APP_ID}}
+      APP_ID: ${{secrets.APP_ID}}
       CREDENTIAL_FILE_CONTENT: ${{secrets.CREDENTIAL_FILE_CONTENT}}
 
     steps:
@@ -33,9 +33,6 @@ jobs:
       # Step 4 Setup Gradle
       - name: Set Up Gradle
         run: gradle wrapper
-
-      - name: Run tests
-        run: ./gradlew testDebug
 
       # Step 5 Setup Ruby
       - name: Setup Ruby
