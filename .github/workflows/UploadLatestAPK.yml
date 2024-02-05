@@ -31,9 +31,9 @@ jobs:
 
       # Step 4 Setup Ruby
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3.0'
+          ruby-version: '3.3'
 
       # Step 5 Install the bundler & Fastlane
       - name: Install bundler
