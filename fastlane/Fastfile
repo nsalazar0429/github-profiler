@@ -18,10 +18,6 @@ default_platform(:android)
         desc "Task that provides build to be tested"
         lane :uploadQA do
             gradle(
-                task: "test",
-                build_type: "Debug"
-            )
-            gradle(
                 task: "clean assemble",
                 build_type: "Debug"
             )
