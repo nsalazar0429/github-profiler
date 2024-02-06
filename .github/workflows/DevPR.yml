@@ -27,7 +27,7 @@ jobs:
         uses: mi-kas/kover-report@v1
         with:
           path: |
-            ${{ github.workspace }}/app/build/generated/report.xml
+            ${{ github.workspace }}/app/build/reports/kover/report.xml
           title: Code Coverage
           update-comment: true
           coverage-counter-type: BRANCH
