@@ -19,3 +19,13 @@ jobs:
         run: ./gradlew ktlintCheck
       - name: Run Tests
         run: ./gradlew testDebugUnitTest
+      - name: Generate kover coverage report
+        run: ./gradlew koverXmlReport
+      - name: Add coverage report to PR
+        id: kover
+        uses: mi-kas/kover-report@v1
+        with:
+          path: ${{ github.workspace }}/app/build/generated/report.xml
+          title: Code Coverage
+          update-comment: true
+          coverage-counter-type: BRANCH
