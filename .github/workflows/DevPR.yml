@@ -15,20 +15,17 @@ jobs:
           java-version: 17
           distribution: 'adopt'
       - name: Set Up Gradle
-        run: gradle wrapper
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
       - name: Check formatting
         run: ./gradlew ktlintCheck
       - name: Run Tests
         run: ./gradlew testDebugUnitTest
-      - name: Generate kover coverage report
-        run: ./gradlew koverXmlReport
-      - name: Add coverage report to PR
-        id: kover
-        uses: mi-kas/kover-report@v1
+      - name: Run Kover
+        run: ./gradlew koverReport
+      - name: Upload Coverage to CodeCov
+        uses: codecov/codecov-action@v2
         with:
-          path: |
-            ${{ github.workspace }}/app/build/reports/kover/report.xml
-          token: ${{ secrets.TOKEN }}
-          title: Code Coverage
-          update-comment: true
-          coverage-counter-type: BRANCH
+          files: ./build/reports/kover/xmlReport.xml
+          fail_ci_if_error: true
