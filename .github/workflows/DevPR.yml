@@ -16,17 +16,9 @@ jobs:
           distribution: 'adopt'
       - name: Set Up Gradle
         run: gradle wrapper
-      - name: Build with Gradle
-        run: ./gradlew build
       - name: Check formatting
         run: ./gradlew ktlintCheck
       - name: Run Tests
         run: ./gradlew testDebugUnitTest
       - name: Run Kover
-        run: ./gradlew koverXmlReport
-      - name: Upload Coverage to CodeCov
-        uses: codecov/codecov-action@v2
-        with:
-          files: ./build/reports/kover/report.xml
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
+        run: ./gradlew koverVerifyDebug
