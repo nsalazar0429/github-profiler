@@ -28,6 +28,7 @@ jobs:
         with:
           path: |
             ${{ github.workspace }}/app/build/reports/kover/report.xml
+          token: ${{ secrets.TOKEN }}
           title: Code Coverage
           update-comment: true
           coverage-counter-type: BRANCH
