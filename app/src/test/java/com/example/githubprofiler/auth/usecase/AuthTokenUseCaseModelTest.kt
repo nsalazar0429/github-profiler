@@ -15,6 +15,6 @@ class AuthTokenUseCaseModelTest {
         val result = model.toUiModel()
 
         // Assert
-        assertThat(result).isEqualTo(AuthTokenUiModel("WHATEVER_NAME"))
+        assertThat(result).isEqualTo(AuthTokenUiModel("WRONG"))
     }
 }
