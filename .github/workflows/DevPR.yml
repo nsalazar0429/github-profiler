@@ -3,8 +3,10 @@ name: Dev PR pipeline.
 on:
   pull_request:
     branches: ["main"]
+
 jobs:
   build:
+    name: Dev PR pipeline
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,7 +17,11 @@ jobs:
           distribution: 'adopt'
       - name: Set Up Gradle
         run: gradle wrapper
+      - name: Build Gradle
+        run: ./gradlew assembleDebug
       - name: Check formatting
         run: ./gradlew ktlintCheck
       - name: Run Tests
         run: ./gradlew testDebugUnitTest
+      - name: Check Coverage
+        run: ./gradlew koverVerifyDebug
