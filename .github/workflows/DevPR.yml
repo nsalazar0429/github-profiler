@@ -3,6 +3,7 @@ name: Dev PR pipeline.
 on:
   pull_request:
     branches: ["main"]
+
 jobs:
   build:
     name: Dev PR pipeline
